@@ -13,6 +13,8 @@ For Android, ensure deep linking is enabled by adding the following to your Andr
 ```xml
 <manifest ...>
   <application ...>
+    ...
+    <!-- Deep linking configuration for handling login redirects back to the app -->
     <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
     <intent-filter android:autoVerify="true">
       <action android:name="android.intent.action.VIEW" />
@@ -20,6 +22,7 @@ For Android, ensure deep linking is enabled by adding the following to your Andr
       <category android:name="android.intent.category.BROWSABLE" />
       <data android:scheme="your_scheme" android:host="your_host" />
     </intent-filter>
+    ...
   </application>
 </manifest>
 ```
