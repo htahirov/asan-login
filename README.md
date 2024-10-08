@@ -21,8 +21,9 @@ For Android, ensure deep linking is enabled by adding the following to your Andr
   </application>
 </manifest>
 ```
-```xml
+
 For iOS, configure URL schemes in your Info.plist:
+```xml
 <plist>
   <dict>
     ...
@@ -43,12 +44,13 @@ For iOS, configure URL schemes in your Info.plist:
 
 ##### Step 2: Install the Plugin
 Add the following dependency in your pubspec.yaml:
-
+```yaml
 dependencies:
   asan_login:
     git:
       url: https://github.com/htahirov/asan-login
       ref: master
+```
   
 ##### Step 3: Implement Asan Login
 Here's an example of how to use the Asan Login Plugin:
@@ -107,8 +109,8 @@ class _LoginPageState extends State<LoginPage> {
 
 ### How it Works:
 ##### Developers only need to provide:
-- ClientId from Digital Login (for identification of their app).
-- RedirectUri (the deep link URI configured in the app).
-  
-##### AsanLoginPlugin handles the login process and returns the authentication code via stream.
-##### Deep Linking ensures the user is brought back to the app after successful login via the web browser.
+- ClientId from Digital Login (for identification of their app). [Digital login gives you]
+- RedirectUri (the deep link URI configured in the app). [You give them]
+- AsanLoginPlugin handles the login process and returns the authentication code via stream.
+
+Deep Linking ensures the user is brought back to the app after successful login via the web browser.  
