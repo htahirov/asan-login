@@ -2,12 +2,12 @@
 The Asan Login Plugin simplifies the integration of Azerbaijan's digital login system, provided by Digital Login, into your Flutter applications. With this plugin, developers can enable secure and streamlined login flows using Asan Login, allowing users to authenticate via the national digital ID system.
 
 ### Key Features:
-##### Easy Integration: Just provide your clientId, redirectUri, and deep linking scheme, and you're good to go!
-##### Platform Support: Seamlessly works on both Android and iOS.
-##### Deep Linking: Supports deep linking to handle login redirects back to your app.
+- Easy Integration: Just provide your clientId, redirectUri, and deep linking scheme, and you're good to go!
+- Platform Support: Seamlessly works on both Android and iOS.
+- Deep Linking: Supports deep linking to handle login redirects back to your app.
 ### Getting Started:
 ##### Step 1: Configure Deep Linking
-##### For Android, ensure deep linking is enabled by adding the following to your AndroidManifest.xml:
+For Android, ensure deep linking is enabled by adding the following to your AndroidManifest.xml:
 ```xml
 <manifest ...>
   <application ...>
@@ -41,13 +41,16 @@ For iOS, configure URL schemes in your Info.plist:
 </plist>
 ```
 
-Step 2: Install the Plugin
+##### Step 2: Install the Plugin
 Add the following dependency in your pubspec.yaml:
 
 dependencies:
-  asan_login: latest_version
+  asan_login:
+    git:
+      url: https://github.com/htahirov/asan-login
+      ref: master
   
-Step 3: Implement Asan Login
+##### Step 3: Implement Asan Login
 Here's an example of how to use the Asan Login Plugin:
 ```dart
 import 'package:flutter/material.dart';
@@ -104,7 +107,8 @@ class _LoginPageState extends State<LoginPage> {
 
 ### How it Works:
 ##### Developers only need to provide:
-##### ClientId from Digital Login (for identification of their app).
-##### RedirectUri (the deep link URI configured in the app).
+- ClientId from Digital Login (for identification of their app).
+- RedirectUri (the deep link URI configured in the app).
+  
 ##### AsanLoginPlugin handles the login process and returns the authentication code via stream.
 ##### Deep Linking ensures the user is brought back to the app after successful login via the web browser.
