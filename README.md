@@ -1,6 +1,8 @@
 ## Asan Login Plugin for Flutter
 The Asan Login Plugin simplifies the integration of Azerbaijan's digital login system, provided by Digital Login, into your Flutter applications. With this plugin, developers can enable secure and streamlined login flows using Asan Login, allowing users to authenticate via the national digital ID system.
 
+![Screenshot 2024-10-08 at 23 37 24](https://github.com/user-attachments/assets/2fb804be-1535-4928-b2cc-ad2749bcde51)
+
 ### Key Features:
 - Easy Integration: Just provide your clientId, redirectUri, and deep linking scheme, and you're good to go!
 - Platform Support: Seamlessly works on both Android and iOS.
