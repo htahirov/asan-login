@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:developer' as logger;
-import 'dart:math';
 
 import 'package:flutter/services.dart';
+
+import 'helpers/uuid_helper.dart';
 
 class AsanLoginController {
   AsanLoginController._() {
@@ -15,7 +16,7 @@ class AsanLoginController {
       _instance ??= AsanLoginController._();
 
   static const _channel = MethodChannel('asan_login');
-  final _asanCodeController = StreamController<String>.broadcast();
+  final _asanCodeController = StreamController<String>();
 
   Stream<String> get asanCodeStream => _asanCodeController.stream;
 
@@ -23,20 +24,6 @@ class AsanLoginController {
     if (call.method == 'onCodeReceived' && call.arguments != null) {
       _asanCodeController.add(call.arguments);
     }
-  }
-
-  String get _generateCustomUuid {
-    final random = Random();
-
-    String formatSection(int length) => List.generate(
-          length,
-          (index) => random.nextInt(16).toRadixString(16),
-        ).join();
-
-    String uuid =
-        '${formatSection(8)}-${formatSection(4)}-${formatSection(4)}-${formatSection(4)}-${formatSection(12)}';
-
-    return uuid;
   }
 
   Future<void> performLogin({
@@ -48,6 +35,8 @@ class AsanLoginController {
     required String scheme,
   }) async {
     try {
+      final sessionId = UuidHelper.generateUuid();
+      logger.log('UUID: $sessionId');
       await _channel.invokeMethod(
         'performLogin',
         {
@@ -55,7 +44,7 @@ class AsanLoginController {
           'clientId': clientId,
           'redirectUri': redirectUri,
           'scope': scope,
-          'sessionId': _generateCustomUuid,
+          'sessionId': sessionId,
           'responseType': responseType,
           'scheme': scheme,
         },
@@ -65,7 +54,5 @@ class AsanLoginController {
     }
   }
 
-  void dispose() {
-    _asanCodeController.close();
-  }
+  void dispose() => _asanCodeController.close();
 }
