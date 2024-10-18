@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:developer' as logger;
+import 'dart:math';
+
 import 'package:flutter/services.dart';
 
 class AsanLoginController {
@@ -24,6 +25,20 @@ class AsanLoginController {
     }
   }
 
+  String get _generateCustomUuid {
+    final random = Random();
+
+    String formatSection(int length) => List.generate(
+          length,
+          (index) => random.nextInt(16).toRadixString(16),
+        ).join();
+
+    String uuid =
+        '${formatSection(8)}-${formatSection(4)}-${formatSection(4)}-${formatSection(4)}-${formatSection(12)}';
+
+    return uuid;
+  }
+
   Future<void> performLogin({
     required String url,
     required String clientId,
@@ -33,9 +48,6 @@ class AsanLoginController {
     required String scheme,
   }) async {
     try {
-      final sessionId =
-          "${DateTime.now().millisecondsSinceEpoch}-${Random().nextInt(100)}";
-
       await _channel.invokeMethod(
         'performLogin',
         {
@@ -43,7 +55,7 @@ class AsanLoginController {
           'clientId': clientId,
           'redirectUri': redirectUri,
           'scope': scope,
-          'sessionId': sessionId,
+          'sessionId': _generateCustomUuid,
           'responseType': responseType,
           'scheme': scheme,
         },
