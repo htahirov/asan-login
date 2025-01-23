@@ -40,8 +40,10 @@ public class AsanLoginPlugin: NSObject, FlutterPlugin {
     private func performLogin(url: String, clientId: String, redirectUri: String, scope: String, sessionId: String, responseType: String) {
         let loginUrl = getAsanUrl(url: url, clientId: clientId, redirectUri: redirectUri, scope: scope, sessionId: sessionId, responseType: responseType)
         
-        if let loginUrl = URL(string: loginUrl) {
-            UIApplication.shared.open(loginUrl)
+        let safariVC = SFSafariViewController(url: loginUrl)
+        safariVC.delegate = self
+        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+            rootViewController.present(safariVC, animated: true, completion: nil)
         }
     }
     
